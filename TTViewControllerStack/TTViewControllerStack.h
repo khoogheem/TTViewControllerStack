@@ -133,6 +133,15 @@
  */
 - (void)setSelectedIndex:(NSUInteger)index completion:(void (^)(void))completion;
 
+
+/**
+ Returns a count of	items in the `TTViewControllerStack`
+ 
+ @return NSInteger A count of items in the stack
+*/
+- (NSInteger)count;
+
+
 ///---------------------------------------------------------------------------------------
 /// @name ViewController Interaction
 ///---------------------------------------------------------------------------------------

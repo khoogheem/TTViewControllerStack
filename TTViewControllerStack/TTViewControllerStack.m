@@ -91,7 +91,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	[self setSelectedIndex:self.selectedIndex completion:nil];
 }
 
-
 #pragma mark - ViewControllers
 - (void)setViewControllers:(NSMutableArray *)newViewControllers {
 	TTLOG(@"Setting Controllers: %@", newViewControllers);
@@ -134,6 +133,10 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	
 	[oldController willMoveToParentViewController:nil];
 	[oldController removeFromParentViewController];
+}
+
+- (NSInteger)count {
+	return [self.viewControllers count];
 }
 
 #pragma mark - Change View Controllers
