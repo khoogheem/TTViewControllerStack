@@ -85,7 +85,7 @@
 
 
 ///---------------------------------------------------------------------------------------
-/// @name ViewController Setup
+/// @name ViewController Setup & Tear Down
 ///---------------------------------------------------------------------------------------
 
 /**
@@ -120,6 +120,11 @@
  @see removeViewController:
 */
 - (void)removeViewControllerAtIndex:(NSUInteger)index;
+
+/**
+ Removes all of the `UIViewControllers` from the `TTViewControllerStack`
+*/
+- (void)removeAllViewControllers;
 
 ///---------------------------------------------------------------------------------------
 /// @name ViewController Actions

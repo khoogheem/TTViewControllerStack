@@ -135,6 +135,14 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	[oldController removeFromParentViewController];
 }
 
+- (void)removeAllViewControllers {
+	TTLOG(@"Removing all View Controllers");
+	
+	for (UIViewController *vc in self.viewControllers) {
+		[self removeViewController:vc];
+	}
+}
+
 - (NSInteger)count {
 	return [self.viewControllers count];
 }
