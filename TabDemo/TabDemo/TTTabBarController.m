@@ -95,6 +95,8 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 
 - (void)setViewControllers:(NSArray *)viewControllers {
+	TTLOG(@"Adding (%d) ViewControllers: %@", viewControllers.count, viewControllers);
+	
 	//Will cycle the viewControllers and pull out the UITabBarItems out of it
 	NSMutableArray *tabBarItems = [NSMutableArray arrayWithCapacity:viewControllers.count];
 
@@ -123,7 +125,8 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 //TabBar Delegate
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-
+	TTLOG(@"Switching to Index: %d", [tabBar.items indexOfObject:item]);
+	
 	//Tell the Stack which index to move to
 	[self.contentViewControllerStack setSelectedIndex:[tabBar.items indexOfObject:item]];
 }
