@@ -77,7 +77,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	_viewControllers = [[NSMutableArray alloc] init];
 	_viewControllerTransitioning = FALSE;
 		
-	self.selectedIndex = 0;
+	_selectedIndex = 0;
 }
 
 #pragma mark - View
@@ -88,7 +88,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 	//Select the First ViewController to start
-	[self setSelectedIndex:self.selectedIndex completion:nil];
+	[self setSelectedIndex:_selectedIndex completion:nil];
 }
 
 #pragma mark - ViewControllers
@@ -165,7 +165,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	void(^internalCompletion)() = ^ {
 			
 		//Set the new Index
-		self.selectedIndex = [_viewControllers indexOfObject:newViewController];
+		_selectedIndex = [_viewControllers indexOfObject:newViewController];
 
 		//set the new selected ViewController
 		self.selectedViewController = newViewController;
@@ -241,6 +241,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 }
 
+
 - (void)setSelectedIndex:(NSUInteger)index completion:(void (^)(void))completion {
 	
 	//Lets Make sure we are within bounds of the total viewcontrollers
@@ -249,7 +250,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	
 	TTLOG(@"Set Selected: %d", index);
 	
-	[self replaceViewController:_viewControllers[self.selectedIndex] withViewController:_viewControllers[index] inContainerView:self.view  animated:TRUE completion:nil];
+	[self replaceViewController:_viewControllers[_selectedIndex] withViewController:_viewControllers[index] inContainerView:self.view  animated:TRUE completion:nil];
 	
 	TTLOG(@"new index is: %d", self.selectedIndex);
 
@@ -257,6 +258,12 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 }
 
+-(void)setSelectedIndex:(NSUInteger)index {
+	if (_selectedIndex != index) {
+		_selectedIndex = index;
+	}
+	[self setSelectedIndex:index completion:nil];
+}
 
 #pragma mark - User Interaction
 - (void)setViewUserInteractionEnabled:(BOOL)enabled {

@@ -135,8 +135,15 @@
  
  @param index The index of the `UIViewController` you are moving to
  @param completion A block that is run when the method runs.
- */
+*/
 - (void)setSelectedIndex:(NSUInteger)index completion:(void (^)(void))completion;
+
+/**
+ Selects the `UIViewController` based on the `index` passed into it, with an optional completion block
+ 
+ @param index The index of the `UIViewController` you are moving to
+*/
+- (void)setSelectedIndex:(NSUInteger)index;
 
 
 /**
