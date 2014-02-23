@@ -48,7 +48,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
     if (self) {
         // Custom initialization
 		[self commonInit];
-		NSLog(@"here");
     }
     return self;
 }
@@ -58,7 +57,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 	self.contentViewControllerStack = [[TTViewControllerStack alloc] init];
 
-	[self.contentViewControllerStack setDebug:TRUE];
+	[self.contentViewControllerStack setDebug:FALSE];
 
 	self.tabBar = [[BaseUITabBar alloc] init];
 	self.tabBar.delegate = self;
@@ -69,7 +68,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSLog(@"herere");
 
 	[self.tabBar sizeToFit];
 	[self.view addSubview:self.tabBar];
@@ -98,9 +96,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 - (void)setViewControllers:(NSArray *)viewControllers {
 	//Will cycle the viewControllers and pull out the UITabBarItems out of it
-	
-	NSLog(@"setting with Viewcontrllers: %d", viewControllers.count);
-	
 	NSMutableArray *tabBarItems = [NSMutableArray arrayWithCapacity:viewControllers.count];
 
 	for (UIViewController *vc in viewControllers) {
