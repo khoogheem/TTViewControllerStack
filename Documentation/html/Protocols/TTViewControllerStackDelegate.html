@@ -4,7 +4,6 @@
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
 		<title>TTViewControllerStackDelegate Protocol Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
-		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
 		<meta name="generator" content="appledoc 2.2 (build 963)" />
@@ -119,8 +118,8 @@
 </tr>
 						</tbody></table></div>
 					
-					
-					
+                    
+                    
 					
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
@@ -144,28 +143,24 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ttViewControllerStack:shouldSelectViewController:">&ndash;&nbsp;ttViewControllerStack:shouldSelectViewController:</a></code>
-		<span class="tooltip"><p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is about to Change the View Controller.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ttViewControllerStack:didSelectViewController:">&ndash;&nbsp;ttViewControllerStack:didSelectViewController:</a></code>
-		<span class="tooltip"><p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> did Change the View Controller.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ttViewControllerStack:willStartAnimationFrom:toViewController:">&ndash;&nbsp;ttViewControllerStack:willStartAnimationFrom:toViewController:</a></code>
-		<span class="tooltip"><p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is about to transition between <code>fromController</code> and <code>toController</code>.  This is only invoked when the <code>animationDuration</code> is greater then <code>0.0f</code></p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/ttViewControllerStack:isAnimatingFrom:toViewController:">&ndash;&nbsp;ttViewControllerStack:isAnimatingFrom:toViewController:</a></code>
-		<span class="tooltip"><p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is transitioning between <code>fromController</code> and <code>toController</code>.  This is only invoked when the <code>animationDuration</code> is greater then <code>0.0f</code></p></span>
 	</span>
 	
 	
@@ -196,9 +191,11 @@
 		<p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> did Change the View Controller.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)ttViewControllerStack:(TTViewControllerStack *)<em>stack</em> didSelectViewController:(UIViewController *)<em>viewController</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -250,9 +247,11 @@
 		<p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is transitioning between <code>fromController</code> and <code>toController</code>.  This is only invoked when the <code>animationDuration</code> is greater then <code>0.0f</code></p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)ttViewControllerStack:(TTViewControllerStack *)<em>stack</em> isAnimatingFrom:(UIViewController *)<em>fromController</em> toViewController:(UIViewController *)<em>toController</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -318,9 +317,11 @@
 		<p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is about to Change the View Controller.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BOOL)ttViewControllerStack:(TTViewControllerStack *)<em>stack</em> shouldSelectViewController:(UIViewController *)<em>viewController</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -377,9 +378,11 @@
 		<p>Invoked when the <a href="../Classes/TTViewControllerStack.html"><code>TTViewControllerStack</code></a> is about to transition between <code>fromController</code> and <code>toController</code>.  This is only invoked when the <code>animationDuration</code> is greater then <code>0.0f</code></p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)ttViewControllerStack:(TTViewControllerStack *)<em>stack</em> willStartAnimationFrom:(UIViewController *)<em>fromController</em> toViewController:(UIViewController *)<em>toController</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -438,6 +441,8 @@
 					</div>
 					
 					
+                    
+                    
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -448,7 +453,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 Kevin A. Hoogheem. All rights reserved. (Last updated: 2014-01-25)</span><br />
+						<p><span class="copyright">&copy; 2014 Kevin A. Hoogheem. All rights reserved. (Last updated: 2014-02-22)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
@@ -538,6 +543,14 @@
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>
