@@ -40,5 +40,14 @@
 */
 @property (nonatomic, readonly) UIView *contentView;
 
+///---------------------------------------------------------------------------------------
+/// @name Debuging
+///---------------------------------------------------------------------------------------
+/**
+ Sets Logging of the `TTTabBarController`
+ 
+ @param debug Either TRUE or FALSE.  Default is `FALSE`
+ */
+- (void)setDebug:(BOOL)debug;
 
 @end
