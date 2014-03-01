@@ -25,7 +25,24 @@
 
 #import <UIKit/UIKit.h>
 
+@class BaseUITabBar;
+
+@protocol TTTabBarControllerDelegate;
+
+/**
+ Drop in replacement for a UITabBarController
+*/
 @interface TTTabBarController : UIViewController
+
+@property (nonatomic, assign) id <TTTabBarControllerDelegate> delegate;
+
+///---------------------------------------------------------------------------------------
+/// @name Managing the View Controllers
+///---------------------------------------------------------------------------------------
+/**
+ An array of the root view controllers displayed by the tab bar interface.  The view controller at index `0` is the left most tabbar item.
+*/
+@property(nonatomic, copy) NSArray *viewControllers;
 
 /**
  Sets the `viewControllers` which are controlled by the `TTTabBarController`
@@ -34,11 +51,36 @@
 */
 - (void)setViewControllers:(NSArray *)viewControllers;
 
+///---------------------------------------------------------------------------------------
+/// @name Managing the Selected Tab
+///---------------------------------------------------------------------------------------
+/**
+ The index of the view controller associated with the currently selected tab item
+ 
+ Default value is NSNotFound
+*/
+@property (nonatomic) NSUInteger selectedIndex;
+
+/**
+ The view controller associated with the currently selected tab item
+*/
+@property(nonatomic, assign) UIViewController *selectedViewController;
+
+///---------------------------------------------------------------------------------------
+/// @name Accessing the Tab Bar Controller Properties
+///---------------------------------------------------------------------------------------
+/**
+ The tab bar view associated with this controller. (read-only)
+ 
+ To configure the items for your tab bar interface, you should assign one or more custom view controllers to the viewControllers property. The tab bar collects the needed tab bar items from the view controllers you specify 
+*/
+@property (nonatomic, readonly) BaseUITabBar *tabBar;
 
 /**
  A readonly property of the contentView - The portion of the screen where the content is
 */
 @property (nonatomic, readonly) UIView *contentView;
+
 
 ///---------------------------------------------------------------------------------------
 /// @name Debuging
@@ -51,3 +93,32 @@
 - (void)setDebug:(BOOL)debug;
 
 @end
+
+///---------------------------------------------------------------------------------------
+/// @name Delegates
+///---------------------------------------------------------------------------------------
+/**
+ The `TTTabBarControllerDelegate` Delegate Methods
+ */
+@protocol TTTabBarControllerDelegate <NSObject>
+
+@optional
+/**
+ Asks the delegate whether the specified view controller should be made active
+ 
+ @param tabBarController The tab bar controller containing `viewController`
+ @param viewController The view controller belonging to the tab that was tapped by the user
+ @return BOOL `YES` if the view controller’s tab should be selected or `NO` if the current tab should remain active
+*/
+- (BOOL)tabBarController:(TTTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController;
+
+/**
+ Tells the delegate that the user selected an item in the tab bar
+ 
+ @param tabBarController The tab bar controller containing `viewController`
+ @param viewController The view controller belonging to the tab that was tapped by the user
+*/
+- (void)tabBarController:(TTTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
+
+@end
+

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTTabBarController.h"
 
-@class TTTabBarController;
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TTTabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

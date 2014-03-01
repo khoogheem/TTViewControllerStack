@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "TTTabBarController.h"
 #import "ViewController.h"
 
 @implementation AppDelegate
@@ -19,6 +18,7 @@
 
 
     self.tabBarController = [[TTTabBarController alloc] init];
+	self.tabBarController.delegate = self;
 	
 	ViewController *vc1 = [[ViewController alloc] init];
 	vc1.view.backgroundColor = [UIColor redColor];
@@ -41,7 +41,13 @@
 	vc5.view.backgroundColor = [UIColor purpleColor];
 	vc5.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:0];
 
-	[self.tabBarController setViewControllers:@[vc1, vc2, vc3, vc4, vc5]];
+	//[self.tabBarController setViewControllers:@[vc1, vc2, vc3, vc4, vc5]];
+	self.tabBarController.viewControllers  = @[vc1, vc2, vc3, vc4, vc5];
+
+	[self.tabBarController setSelectedIndex:3];
+
+	NSLog(@"_-_-_-_");
+	[self.tabBarController setSelectedViewController:vc1];
 	
 	self.window.rootViewController = self.tabBarController;
 	[self.window makeKeyAndVisible];
@@ -76,4 +82,15 @@
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//Delgates
+- (BOOL)tabBarController:(TTTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+		
+	return TRUE;
+}
+
+- (void)tabBarController:(TTTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+
+	NSLog(@"Selected index: %d VC: %@", tabBarController.selectedIndex, viewController);
+
+}
 @end

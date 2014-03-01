@@ -28,7 +28,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 @property (nonatomic, retain) TTViewControllerStack *contentViewControllerStack;
 
 //The TabBar
-@property (nonatomic, retain) BaseUITabBar *tabBar;
+@property (nonatomic, strong) BaseUITabBar *tabBar;
 
 //Views:
 @property (nonatomic, strong) UIView *contentView;
@@ -55,6 +55,8 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 - (void)commonInit {
 	_debug = FALSE;
 
+	_selectedIndex = NSNotFound;
+	
 	self.contentViewControllerStack = [[TTViewControllerStack alloc] init];
 
 	[self.contentViewControllerStack setDebug:FALSE];
@@ -104,9 +106,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 		[tabBarItems addObject:vc.tabBarItem];
 	}
 	self.tabBar.items = tabBarItems;
-
-	//Remove any old controllers
-	[self.contentViewControllerStack removeAllViewControllers];
 	
 	//Add the ViewControllers to the Stack
 	[self.contentViewControllerStack setViewControllers:[NSMutableArray arrayWithArray:viewControllers]];
@@ -122,13 +121,49 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 }
 
-//TabBar Delegate
+//Selection
+-(void)setSelectedIndex:(NSUInteger)selectedIndex {
+	TTLOG(@"Switching to Index: %d", selectedIndex);
+	
+	//Tell the Stack which index to move to and set the tab
+	self.tabBar.selectedItem = self.tabBar.items[selectedIndex];
+	[self.tabBar.delegate tabBar:self.tabBar didSelectItem:self.tabBar.selectedItem];
+}
+
+-(void)setSelectedViewController:(UIViewController *)selectedViewController {
+	TTLOG(@"Switching to ViewController: %@", selectedViewController);
+
+	if ([self.contentViewControllerStack.viewControllers containsObject:selectedViewController]) {
+		//Tell the Stack which index to move to and set the tab
+		self.tabBar.selectedItem = self.tabBar.items[[self.contentViewControllerStack.viewControllers indexOfObject:selectedViewController]];
+		[self.tabBar.delegate tabBar:self.tabBar didSelectItem:self.tabBar.selectedItem];
+	}
+}
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
 	TTLOG(@"Switching to Index: %d", [tabBar.items indexOfObject:item]);
 	
+	//NOW lets Ask The Delegate if we should even move forard!
+	if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarController:shouldSelectViewController:)]) {
+		if (![self.delegate tabBarController:self shouldSelectViewController:[self.contentViewControllerStack.viewControllers objectAtIndex:[tabBar.items indexOfObject:item]]] && _selectedIndex != NSNotFound) {
+			self.tabBar.selectedItem = self.tabBar.items[_selectedIndex];
+			return;
+		}
+	}
+
+	_selectedIndex = [tabBar.items indexOfObject:item];
+
 	//Tell the Stack which index to move to
-	[self.contentViewControllerStack setSelectedIndex:[tabBar.items indexOfObject:item]];
+	[self.contentViewControllerStack setSelectedIndex:_selectedIndex];
+	
+	//Change the selectedViewController
+	_selectedViewController = self.contentViewControllerStack.selectedViewController;
+	
+	//Tell the delegate that the viewController has changed
+	if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarController:didSelectViewController:)]) {
+		[self.delegate tabBarController:self didSelectViewController:_selectedViewController];
+	}
+
 }
 
 @end
