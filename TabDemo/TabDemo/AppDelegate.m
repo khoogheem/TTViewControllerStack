@@ -16,10 +16,10 @@
 	
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-
     self.tabBarController = [[TTTabBarController alloc] init];
 	self.tabBarController.delegate = self;
-	
+	//[self.tabBarController setDebug:TRUE];
+
 	ViewController *vc1 = [[ViewController alloc] init];
 	vc1.view.backgroundColor = [UIColor redColor];
 	vc1.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
@@ -43,12 +43,12 @@
 
 	//[self.tabBarController setViewControllers:@[vc1, vc2, vc3, vc4, vc5]];
 	self.tabBarController.viewControllers  = @[vc1, vc2, vc3, vc4, vc5];
-
+	
 	[self.tabBarController setSelectedIndex:3];
 
 	NSLog(@"_-_-_-_");
 	[self.tabBarController setSelectedViewController:vc1];
-	
+
 	self.window.rootViewController = self.tabBarController;
 	[self.window makeKeyAndVisible];
 

@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 #import "TTViewControllerStack.h"
+#import "TTArc.h"
 
 #ifndef TTLOG
 #define TTLOG(fmt, ...) \
@@ -80,6 +81,12 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	_selectedIndex = 0;
 }
 
+- (void)dealloc {
+	[super tt_dealloc];
+
+	[_viewControllers tt_release];
+}
+
 #pragma mark - View
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -104,7 +111,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 		[viewController removeFromParentViewController];
 	}
 	
-	_viewControllers = newViewControllers;
+	_viewControllers = [newViewControllers mutableCopy];
 
 	// Add all th new child view controllers.
 	for (UIViewController *viewController in _viewControllers) {

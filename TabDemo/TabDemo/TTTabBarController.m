@@ -7,6 +7,7 @@
 //
 
 #import "TTTabBarController.h"
+#import "TTArc.h"
 #import "TTViewControllerStack.h"
 #import "BaseUITabBar.h"
 
@@ -42,8 +43,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	_debug = debug;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -65,7 +65,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	self.tabBar.delegate = self;
 
 	self.contentView = [[UIView alloc] init];
-
 }
 
 - (void)viewDidLoad {
@@ -90,11 +89,16 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 }
 
+- (void)dealloc {
+	[super tt_dealloc];
+	
+	[self.contentViewControllerStack tt_release];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)setViewControllers:(NSArray *)viewControllers {
 	TTLOG(@"Adding (%d) ViewControllers: %@", viewControllers.count, viewControllers);
@@ -105,6 +109,8 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	for (UIViewController *vc in viewControllers) {
 		[tabBarItems addObject:vc.tabBarItem];
 	}
+	_viewControllers = viewControllers;
+	
 	self.tabBar.items = tabBarItems;
 	
 	//Add the ViewControllers to the Stack
@@ -142,10 +148,11 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
 	TTLOG(@"Switching to Index: %d", [tabBar.items indexOfObject:item]);
-	
+
 	//NOW lets Ask The Delegate if we should even move forard!
 	if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarController:shouldSelectViewController:)]) {
 		if (![self.delegate tabBarController:self shouldSelectViewController:[self.contentViewControllerStack.viewControllers objectAtIndex:[tabBar.items indexOfObject:item]]] && _selectedIndex != NSNotFound) {
+			
 			self.tabBar.selectedItem = self.tabBar.items[_selectedIndex];
 			return;
 		}
@@ -159,7 +166,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	//Change the selectedViewController
 	_selectedViewController = self.contentViewControllerStack.selectedViewController;
 	
-	//Tell the delegate that the viewController has changed
+	//Tell the delegate that the viewController has changed.. Should we only do this if it has changed??
 	if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarController:didSelectViewController:)]) {
 		[self.delegate tabBarController:self didSelectViewController:_selectedViewController];
 	}

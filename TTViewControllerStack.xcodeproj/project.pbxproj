@@ -58,6 +58,7 @@
 		965DB795187B01BA00FD6A5C /* TTViewControllerStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTViewControllerStack.m; sourceTree = "<group>"; };
 		965DB798187B175500FD6A5C /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
 		965DB799187B175500FD6A5C /* SimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleViewController.m; sourceTree = "<group>"; };
+		96A9A55818C24C9C0010CCDD /* TTArc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTArc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +121,7 @@
 			children = (
 				965DB794187B01BA00FD6A5C /* TTViewControllerStack.h */,
 				965DB795187B01BA00FD6A5C /* TTViewControllerStack.m */,
+				96A9A55818C24C9C0010CCDD /* TTArc.h */,
 			);
 			path = TTViewControllerStack;
 			sourceTree = "<group>";
