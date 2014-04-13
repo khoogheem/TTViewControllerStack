@@ -75,8 +75,6 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - self.tabBar.frame.size.height, CGRectGetWidth(self.view.frame), self.tabBar.frame.size.height);
 	
 	self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-
-	[self.view addSubview:self.tabBar];
 	
 	self.contentView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - self.tabBar.frame.size.height);
     self.contentView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
@@ -86,6 +84,8 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 
 	[self.view addSubview:self.contentView];
+
+	[self.view addSubview:self.tabBar];
 
 }
 
