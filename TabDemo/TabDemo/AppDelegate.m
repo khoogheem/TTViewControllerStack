@@ -90,7 +90,7 @@
 
 - (void)tabBarController:(TTTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
-	NSLog(@"Selected index: %d VC: %@", tabBarController.selectedIndex, viewController);
+	NSLog(@"Selected index: %lu VC: %@", (unsigned long)tabBarController.selectedIndex, viewController);
 
 }
 @end
