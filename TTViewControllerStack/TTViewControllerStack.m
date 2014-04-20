@@ -78,7 +78,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	_viewControllers = [[NSMutableArray alloc] init];
 	_viewControllerTransitioning = FALSE;
 		
-	_selectedIndex = 0;
+	_selectedIndex = NSNotFound;
 }
 
 - (void)dealloc {
@@ -251,15 +251,18 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 
 - (void)setSelectedIndex:(NSUInteger)index completion:(void (^)(void))completion {
 	
+	if (index == NSNotFound)
+		return;
+	
 	//Lets Make sure we are within bounds of the total viewcontrollers
 	if (index >= [self.viewControllers count])
-		[NSException raise:NSRangeException format:@"***%s: index (%d) beyond bounds (%d)", sel_getName(_cmd), index, [self.viewControllers count] -1];
+		[NSException raise:NSRangeException format:@"***%s: index (%lu) beyond bounds (%lu)", sel_getName(_cmd), (unsigned long)index, [self.viewControllers count] -1];
 	
-	TTLOG(@"Set Selected: %d", index);
+	TTLOG(@"Set Selected: %lu", (unsigned long)index);
 	
 	[self replaceViewController:_viewControllers[_selectedIndex] withViewController:_viewControllers[index] inContainerView:self.view  animated:TRUE completion:nil];
 	
-	TTLOG(@"new index is: %d", self.selectedIndex);
+	TTLOG(@"new index is: %lu", (unsigned long)self.selectedIndex);
 
 	if (completion != nil) completion();
 

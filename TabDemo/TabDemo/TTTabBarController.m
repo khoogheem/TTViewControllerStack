@@ -71,7 +71,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
     [super viewDidLoad];
 
 	[self.tabBar sizeToFit];
-	[self.view addSubview:self.tabBar];
+
 	self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - self.tabBar.frame.size.height, CGRectGetWidth(self.view.frame), self.tabBar.frame.size.height);
 	
 	self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
@@ -131,6 +131,9 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 -(void)setSelectedIndex:(NSUInteger)selectedIndex {
 	TTLOG(@"Switching to Index: %lu", (unsigned long)selectedIndex);
 	
+	if (selectedIndex == NSNotFound)
+		return;
+
 	//Tell the Stack which index to move to and set the tab
 	self.tabBar.selectedItem = self.tabBar.items[selectedIndex];
 	[self.tabBar.delegate tabBar:self.tabBar didSelectItem:self.tabBar.selectedItem];
@@ -147,7 +150,7 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-	TTLOG(@"Switching to Index: %d", [tabBar.items indexOfObject:item]);
+	TTLOG(@"Switching to Index: %lu", (unsigned long)[tabBar.items indexOfObject:item]);
 
 	//NOW lets Ask The Delegate if we should even move forard!
 	if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarController:shouldSelectViewController:)]) {
