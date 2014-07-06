@@ -116,6 +116,9 @@ NSLog((@"%s [%u]: " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
 	//Add the ViewControllers to the Stack
 	[self.contentViewControllerStack setViewControllers:[NSMutableArray arrayWithArray:viewControllers]];
 
+	//Make sure to set the ContentViewController as a Childview of TTTabbar
+	[self addChildViewController:self.contentViewControllerStack];
+
 	//Add the Stack to the contentView
 	[self.contentView addSubview:self.contentViewControllerStack.view];
 
